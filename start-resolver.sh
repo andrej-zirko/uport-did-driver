@@ -4,5 +4,4 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
-HOST_IP=$(/sbin/ip route|awk '/default/ { print $3 }')
-node /opt/uport-did-driver/expressresolver.js $HOST_IP $1
+node /opt/uport-did-driver/expressresolver.js $1
