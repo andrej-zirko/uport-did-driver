@@ -11,7 +11,7 @@ RUN apt-get -y update
 # build dependencies
 
 RUN apt-get install -y --no-install-recommends git
-RUN cd /opt/ && git clone https://github.com/uport-project/uport-did-driver.git
+RUN cd /opt/ && git clone https://github.com/andrej-zirko/uport-did-driver.git
 RUN cd /opt/uport-did-driver && npm install
 
 # done
