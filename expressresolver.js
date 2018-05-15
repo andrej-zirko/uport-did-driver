@@ -11,9 +11,18 @@ const app = express()
 const UportLite = require('uport-lite')
 const config = require('./configuration')
 
+if (process.argv.length < 4) {
+  console.log("Usage: " + __filename + " hostIp registryAddress");
+  process.exit(-1);
+}
+const hostIp = process.argv[2];
+const registryAddress = process.argv[3];
+const rpcUrl = config.rpcUrl.replace(config.ipToken, hostIp);
+const ipfsGw = config.ipfsGw.replace(config.ipToken, hostIp);
+
 let networks = {}
-networks[config.id] = { 'registry': config.registry, 'rpcUrl': config.rpcUrl }
-const uportLiteRegistry = new UportLite({ networks: networks, ipfsGw: config.ipfsGw })
+networks[config.id] = { 'registry': registryAddress, 'rpcUrl':  rpcUrl}
+const uportLiteRegistry = new UportLite({ networks: networks, ipfsGw: ipfsGw })
 console.log('Configured custom uport registry: ' + networks[config.id])
 
 // Register resolvers
