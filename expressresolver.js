@@ -8,8 +8,16 @@ const ethResolver = require('eth-did-resolver')
 const express = require('express')
 const app = express()
 
+const UportLite = require('uport-lite')
+const config = require('./configuration')
+
+let networks = {}
+networks[config.id] = { 'registry': config.registry, 'rpcUrl': config.rpcUrl }
+const uportLiteRegistry = new UportLite({ networks: networks, ipfsGw: config.ipfsGw })
+console.log('Configured custom uport registry: ' + networks[config.id])
+
 // Register resolvers
-uportResolver()
+uportResolver(uportLiteRegistry)
 muportResolver()
 ethrResolver()
 ethResolver()
